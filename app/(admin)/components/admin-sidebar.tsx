@@ -3,12 +3,14 @@ import type { ReactNode } from 'react';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarInset,
 } from '@/components/ui/sidebar';
 import { NavHeader } from './nav-header';
 import { NavMain } from './nav-main';
 import { NavSecondary } from './nav-secondary';
+import { NavUser } from './nav-user';
 import { Search } from './search';
 
 export type AdminSidebarProps = {
@@ -25,9 +27,12 @@ export default function AdminSidebar({ children }: AdminSidebarProps) {
         <Search />
         <SidebarContent>
           <NavMain />
+
           <NavSecondary className="mt-auto" />
         </SidebarContent>
-        {/* <SidebarFooter></SidebarFooter> */}
+        <SidebarFooter>
+          <NavUser />
+        </SidebarFooter>
       </Sidebar>
       <SidebarInset>{children}</SidebarInset>
     </>
