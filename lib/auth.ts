@@ -12,7 +12,8 @@ export const auth = betterAuth({
     openAPI(),
     magicLink({
       sendMagicLink(data, request) {
-        console.log(data, request);
+        // biome-ignore lint/suspicious/noConsole: <explanation>
+        console.info(data, request);
       },
     }),
   ],
