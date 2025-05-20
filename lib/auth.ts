@@ -2,7 +2,7 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { magicLink, openAPI } from 'better-auth/plugins';
+import { admin, magicLink, openAPI } from 'better-auth/plugins';
 import { sendMagicLinkEmail } from './email';
 
 export const auth = betterAuth({
@@ -13,6 +13,7 @@ export const auth = betterAuth({
   }),
   plugins: [
     openAPI(),
+    admin(),
     magicLink({
       async sendMagicLink({ email, url }) {
         // biome-ignore lint/suspicious/noConsoleLog: <explanation>
