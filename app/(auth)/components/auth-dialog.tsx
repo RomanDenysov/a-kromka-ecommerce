@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { signIn } from '@/lib/auth.client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
@@ -43,9 +44,18 @@ export function AuthDialog() {
   const { back } = useRouter();
   const { isSubmitting } = form.formState;
 
-  const onSubmit = (data: EmailForm) => {
-    console.log(data);
-  };
+  const onSubmit = ({ email }: EmailForm) =>
+    signIn.magicLink(
+      { email, callbackURL: '/' },
+      {
+        onSuccess: () => {
+          alert('Email sent');
+        },
+        onError: () => {
+          alert('Failed to send email');
+        },
+      }
+    );
 
   return (
     <Dialog open={true} onOpenChange={back}>
