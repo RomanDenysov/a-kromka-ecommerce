@@ -1,3 +1,5 @@
+import { AuthDialog } from '../components/auth-dialog';
+
 export default function AuthPage() {
-  return <div>Auth</div>;
+  return <AuthDialog />;
 }
