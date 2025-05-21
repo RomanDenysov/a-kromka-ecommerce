@@ -66,7 +66,7 @@ export function ProductsTable<TData, TValue>({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between py-2">
+      <div className="flex items-center justify-between p-2">
         <Input
           placeholder="Search product..."
           value={searchValue || ''}

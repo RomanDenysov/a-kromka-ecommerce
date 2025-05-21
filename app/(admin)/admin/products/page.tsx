@@ -18,7 +18,7 @@ export default async function AdminProductsPage() {
         ]}
       />
       <div className="container mx-auto w-full px-4 py-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-2">
           <h1 className="font-bold text-2xl">Products</h1>
           <div className="flex items-center gap-2">
             {/* TODO: Add export functionality */}
