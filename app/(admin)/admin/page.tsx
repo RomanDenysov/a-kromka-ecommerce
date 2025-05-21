@@ -1,3 +1,12 @@
+import { DashboardHeader } from '../components/dashboard-header';
+
 export default function DashboardPage() {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <DashboardHeader breadcrumbs={[{ label: 'Dashboard' }]} />
+      <div className="container mx-auto w-full px-4 py-6">
+        <h1 className="font-bold text-2xl">Dashboard</h1>
+      </div>
+    </>
+  );
 }

@@ -12,10 +12,10 @@ export function NavHeader() {
       <SidebarMenuItem>
         <SidebarMenuButton
           asChild
-          className="data-[slot=sidebar-menu-button]:!p-1.5"
+          // className="data-[slot=sidebar-menu-button]:!p-1.5"
         >
           <Link href="#">
-            <ArrowUpCircleIcon className="h-5 w-5" />
+            <ArrowUpCircleIcon />
             <span className="font-semibold text-base">Kromka</span>
           </Link>
         </SidebarMenuButton>

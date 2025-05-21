@@ -11,7 +11,6 @@ import { NavHeader } from './nav-header';
 import { NavMain } from './nav-main';
 import { NavSecondary } from './nav-secondary';
 import { NavUser } from './nav-user';
-import { Search } from './search';
 
 export type AdminSidebarProps = {
   readonly children: ReactNode;
@@ -20,11 +19,11 @@ export type AdminSidebarProps = {
 export default function AdminSidebar({ children }: AdminSidebarProps) {
   return (
     <>
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarHeader>
           <NavHeader />
         </SidebarHeader>
-        <Search />
+        {/* <Search /> */}
         <SidebarContent>
           <NavMain />
 
