@@ -2,6 +2,7 @@
 
 import { Badge, type BadgeVariant } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +25,7 @@ import {
   TrashIcon,
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export type TableProduct = {
   id: string;
@@ -35,6 +37,28 @@ export type TableProduct = {
 };
 
 export const columns: ColumnDef<TableProduct>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'image',
     header: '',
@@ -138,10 +162,13 @@ function RowActions({ product }: { product: TableProduct }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <PencilIcon className="size-4" />
-            Edit
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/products/${product.id}/edit`}>
+              <PencilIcon className="size-4" />
+              Edit
+            </Link>
           </DropdownMenuItem>
+          {/* TODO: Add delete functionality */}
           <DropdownMenuItem>
             <TrashIcon className="size-4" />
             Delete

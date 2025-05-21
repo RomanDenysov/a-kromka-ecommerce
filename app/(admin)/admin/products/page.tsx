@@ -3,46 +3,9 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { DownloadIcon, PackagePlusIcon } from 'lucide-react';
 import Link from 'next/link';
-import { type TableProduct, columns } from './components/columns';
+import { columns } from './components/columns';
 import { ProductsTable } from './components/products-table';
-
-// biome-ignore lint/suspicious/useAwait: <explanation>
-async function getProducts(): Promise<TableProduct[]> {
-  return [
-    {
-      id: '1',
-      name: 'Product 1',
-      price: '100.00',
-      status: 'active',
-      createdAt: '2021-01-01',
-      image: '/images/rozky5ks.webp',
-    },
-    {
-      id: '2',
-      name: 'Product 2',
-      price: '200.50',
-      status: 'draft',
-      createdAt: '2021-01-01',
-      image: '/images/rozky5ks.webp',
-    },
-    {
-      id: '3',
-      name: 'Product 3',
-      price: '300.100',
-      status: 'sold',
-      createdAt: '2021-01-01',
-      image: '/images/rozky5ks.webp',
-    },
-    {
-      id: '4',
-      name: 'Product 4',
-      price: '400.00',
-      status: 'active',
-      createdAt: '2021-01-01',
-      image: '/images/rozky5ks.webp',
-    },
-  ];
-}
+import { getProducts } from './dummyProductsData';
 
 export default async function AdminProductsPage() {
   const data = await getProducts();
