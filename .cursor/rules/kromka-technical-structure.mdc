@@ -1,0 +1,57 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Kromka Technical Implementation Guide
+
+## Tech Stack Architecture
+
+### Frontend Layer
+- Framework: Next.js App Router
+- UI Components: Shadcn UI
+- Styling: TailwindCSS
+- Key directories:
+  - [app/](mdc:app) - Main application routes
+  - [components/](mdc:components) - Reusable UI components
+  - [hooks/](mdc:hooks) - Custom React hooks
+
+### Backend Layer
+- Server: Next.js Server Actions
+- Database: PostgreSQL with DrizzleORM
+- Key directories:
+  - [db/](mdc:db) - Database schema and migrations
+  - [actions/](mdc:app/actions) - Server actions
+  - [api/](mdc:app/api) - API routes
+
+### Authentication System
+- Core: better-auth implementation
+- Features:
+  - Google social login
+  - Magic link authentication
+  - Role-based access control
+
+### Admin Dashboard
+- Protected routes with role verification
+- Server-side rendering for data-heavy pages
+
+### Integration Points
+1. Payment Processing
+   - Stripe integration
+   - Secure payment handling
+   - Invoice generation for B2B
+
+2. Analytics
+   - PostHog integration
+   - User behavior tracking
+   - Sales analytics
+   - Performance monitoring
+
+## Development Standards
+- Server Components by default
+- Client Components only when necessary
+- TypeScript for type safety
+- Proper error boundaries
+- Performance optimization
+- Responsive design implementation
+- Secure data handling

@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Kromka E-Commerce Platform Structure
+
+## Core Platform Components
+
+### 1. E-Commerce Store (Main Platform)
+- Primary focus: Bakery products and in-house delicacies
+- Order model: Pick-and-collect focused
+- Key features:
+  - Product catalog with availability per store
+  - Shopping cart functionality
+  - Order processing system
+  - Store location selection
+
+### 2. B2B Platform
+- Restricted access platform for:
+  - Partners
+  - Administrators
+  - Managers
+- Features:
+  - Wholesale ordering system
+  - Partner-specific pricing
+  - Bulk order management
+  - Invoice handling
+
+### 3. Blog Section
+- Content focus:
+  - Food-related articles
+  - Coffee culture
+  - Store brand content
+  - Social media integration
+
+## User Role Hierarchy
+1. Guest (Unauthenticated)
+   - Browse products
+   - View blog content
+   - Basic site navigation
+2. User (Authenticated)
+   - Place orders
+   - Manage profile
+   - Order history
+3. Seller
+   - Process orders
+   - Manage inventory
+4. Author
+   - Blog content management
+   - Content publishing
+5. Administrator
+   - Full platform access
+   - System configuration
+   - User management
+
+## Administrative Features
+- Dashboard access based on role permissions
+- Product management system
+- Store configuration tools
+- Order processing workflow
+- User role management
+- Blog content management
+- Analytics and reporting
+
+## Customer Experience Requirements
+- Clean, modern interface
+- Mobile-first responsive design
+- Quick access to core functions
+- Seamless checkout process
+- Real-time product availability
+- Store location integration
