@@ -2,12 +2,11 @@
 
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
 
-export async function signOut() {
-  await auth.api.signOut({
+export async function isAuthenticated() {
+  const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  redirect('/auth');
+  return !!session;
 }

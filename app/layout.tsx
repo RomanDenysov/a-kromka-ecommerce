@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { Providers } from '@/components/providers/providers';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { fonts } from './fonts';
@@ -18,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(fonts)}>{children}</body>
+      <body className={cn(fonts)}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

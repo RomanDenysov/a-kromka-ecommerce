@@ -1,12 +1,21 @@
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
+import { isAuthenticated } from './actions/auth';
 
-export default function Home() {
+export default async function Home() {
+  const isAuth = await isAuthenticated();
+
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      <Link href="/auth" className={buttonVariants({ variant: 'default' })}>
-        Sign in
-      </Link>
+      {isAuth ? (
+        <Link href="/admin" className={buttonVariants({ variant: 'outline' })}>
+          Go to dashboard
+        </Link>
+      ) : (
+        <Link href="/auth" className={buttonVariants({ variant: 'default' })}>
+          Sign in
+        </Link>
+      )}
     </div>
   );
 }
