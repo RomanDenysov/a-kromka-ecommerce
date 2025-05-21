@@ -78,6 +78,16 @@ export const columns: ColumnDef<TableProduct>[] = [
   {
     header: 'Name',
     accessorKey: 'name',
+    cell: ({ row }) => {
+      return (
+        <Link
+          className="hover:underline"
+          href={`/admin/products/${row.original.id}`}
+        >
+          {row.original.name}
+        </Link>
+      );
+    },
   },
   {
     header: ({ column }) => {

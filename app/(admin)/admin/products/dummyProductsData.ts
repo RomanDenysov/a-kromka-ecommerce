@@ -165,3 +165,11 @@ export async function getProducts(): Promise<TableProduct[]> {
     },
   ];
 }
+
+export async function getProduct(
+  id: string
+): Promise<TableProduct | undefined> {
+  return getProducts().then((products) =>
+    products.find((product) => product.id === id)
+  );
+}
