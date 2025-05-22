@@ -25,6 +25,7 @@ export function BackButton({ href, label, ...props }: BackButtonProps) {
     <Button
       variant="outline"
       size={label ? 'sm' : 'icon'}
+      className="size-8 md:size-9"
       onClick={handleClick}
       {...props}
     >
