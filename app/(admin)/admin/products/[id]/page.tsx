@@ -1,4 +1,8 @@
 import { DashboardHeader } from '@/app/(admin)/components/dashboard-header';
+import { BackButton } from '@/components/shared/back-button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { PencilIcon, TrashIcon } from 'lucide-react';
+import Link from 'next/link';
 import { getProduct } from '../dummyProductsData';
 
 export default async function AdminProductPage({
@@ -20,7 +24,38 @@ export default async function AdminProductPage({
         ]}
       />
       <div className="container mx-auto w-full px-4 py-6">
-        <h1 className="font-bold text-2xl">{product?.name}</h1>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BackButton />
+            <h1 className="truncate font-bold text-xl md:text-2xl">
+              {product?.name || 'Product'}
+            </h1>
+          </div>
+          <div className="hidden items-center gap-2 md:flex">
+            <Button variant="destructive">
+              <TrashIcon />
+              Delete
+            </Button>
+            <Link
+              href={`/admin/products/${product?.id}/edit`}
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              <PencilIcon />
+              Edit
+            </Link>
+          </div>
+          <div className="flex items-center gap-2 md:hidden">
+            <Button variant="destructive" size="icon">
+              <TrashIcon />
+            </Button>
+            <Link
+              href={`/admin/products/${product?.id}/edit`}
+              className={buttonVariants({ variant: 'outline', size: 'icon' })}
+            >
+              <PencilIcon />
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -75,7 +75,7 @@ export function ProductsTable<TData, TValue>({
         />
         <div className="flex items-center justify-end gap-2">
           {table.getFilteredSelectedRowModel().rows.length > 0 && (
-            <Button variant="outline" onClick={handleDelete}>
+            <Button variant="destructive" onClick={handleDelete}>
               <TrashIcon />
               Delete
             </Button>

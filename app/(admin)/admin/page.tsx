@@ -5,7 +5,7 @@ export default function DashboardPage() {
     <>
       <DashboardHeader breadcrumbs={[{ label: 'Dashboard' }]} />
       <div className="container mx-auto w-full px-4 py-6">
-        <h1 className="font-bold text-2xl">Dashboard</h1>
+        <h1 className="font-bold text-xl md:text-2xl">Dashboard</h1>
       </div>
     </>
   );
