@@ -1,9 +1,9 @@
 import { DashboardHeader } from '@/app/(admin)/components/dashboard-header';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { DownloadIcon, PackagePlusIcon } from 'lucide-react';
 import Link from 'next/link';
 import { columns } from './components/columns';
+import { PageLayout } from './components/page-layout';
 import { ProductsTable } from './components/products-table';
 import { getProducts } from './dummyProductsData';
 
@@ -17,9 +17,14 @@ export default async function AdminProductsPage() {
           { label: 'Products' },
         ]}
       />
-      <div className="container mx-auto w-full px-4 py-6">
-        <div className="flex items-center justify-between px-2">
-          <h1 className="font-bold text-xl md:text-2xl">Products</h1>
+      <PageLayout>
+        <PageLayout.Heading>
+          <div className="flex items-center gap-3 md:gap-4">
+            {/* <BackButton /> */}
+            <h1 className="font-medium text-xl sm:text-2xl md:text-3xl">
+              Products
+            </h1>
+          </div>
           <div className="flex items-center gap-2">
             {/* TODO: Add export functionality */}
             <Button variant="outline">
@@ -31,10 +36,11 @@ export default async function AdminProductsPage() {
               Add Product
             </Link>
           </div>
-        </div>
-        <Separator className="my-4" />
-        <ProductsTable columns={columns} data={data} />
-      </div>
+        </PageLayout.Heading>
+        <PageLayout.Content>
+          <ProductsTable columns={columns} data={data} />
+        </PageLayout.Content>
+      </PageLayout>
     </>
   );
 }

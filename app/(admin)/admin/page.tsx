@@ -1,12 +1,20 @@
 import { DashboardHeader } from '../components/dashboard-header';
+import { PageLayout } from './products/components/page-layout';
 
 export default function DashboardPage() {
   return (
     <>
       <DashboardHeader breadcrumbs={[{ label: 'Dashboard' }]} />
-      <div className="container mx-auto w-full px-4 py-6">
-        <h1 className="font-bold text-xl md:text-2xl">Dashboard</h1>
-      </div>
+      <PageLayout>
+        <PageLayout.Heading>
+          <h1 className="font-medium text-xl sm:text-2xl md:text-3xl">
+            Dashboard
+          </h1>
+        </PageLayout.Heading>
+        <PageLayout.Content>
+          <p>Dashboard</p>
+        </PageLayout.Content>
+      </PageLayout>
     </>
   );
 }

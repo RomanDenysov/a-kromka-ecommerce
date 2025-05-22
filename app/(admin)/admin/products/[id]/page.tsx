@@ -3,6 +3,7 @@ import { BackButton } from '@/components/shared/back-button';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
+import { PageLayout } from '../components/page-layout';
 import { getProduct } from '../dummyProductsData';
 
 export default async function AdminProductPage({
@@ -23,39 +24,50 @@ export default async function AdminProductPage({
           { label: product?.name || 'Product' },
         ]}
       />
-      <div className="container mx-auto w-full px-4 py-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+      <PageLayout>
+        <PageLayout.Heading>
+          <div className="flex items-center gap-3 md:gap-4">
             <BackButton />
-            <h1 className="truncate font-bold text-xl md:text-2xl">
+            <h1 className="truncate font-medium text-xl sm:text-2xl md:text-3xl">
               {product?.name || 'Product'}
             </h1>
           </div>
-          <div className="hidden items-center gap-2 md:flex">
-            <Button variant="destructive">
-              <TrashIcon />
-              Delete
-            </Button>
-            <Link
-              href={`/admin/products/${product?.id}/edit`}
-              className={buttonVariants({ variant: 'outline' })}
-            >
-              <PencilIcon />
-              Edit
-            </Link>
-          </div>
-          <div className="flex items-center gap-2 md:hidden">
-            <Button variant="destructive" size="icon">
-              <TrashIcon />
-            </Button>
-            <Link
-              href={`/admin/products/${product?.id}/edit`}
-              className={buttonVariants({ variant: 'outline', size: 'icon' })}
-            >
-              <PencilIcon />
-            </Link>
-          </div>
-        </div>
+          <ProductActions id={product?.id || ''} />
+        </PageLayout.Heading>
+        <PageLayout.Content>
+          <p>Product</p>
+        </PageLayout.Content>
+      </PageLayout>
+    </>
+  );
+}
+
+function ProductActions({ id }: { id: string }) {
+  return (
+    <>
+      <div className="hidden items-center gap-2 md:flex">
+        <Button variant="destructive">
+          <TrashIcon />
+          Delete
+        </Button>
+        <Link
+          href={`/admin/products/${id}/edit`}
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          <PencilIcon />
+          Edit
+        </Link>
+      </div>
+      <div className="flex items-center gap-2 md:hidden">
+        <Button variant="destructive" size="icon">
+          <TrashIcon />
+        </Button>
+        <Link
+          href={`/admin/products/${id}/edit`}
+          className={buttonVariants({ variant: 'outline', size: 'icon' })}
+        >
+          <PencilIcon />
+        </Link>
       </div>
     </>
   );
