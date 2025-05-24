@@ -7,6 +7,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string(),
     BETTER_AUTH_URL: z.string().url(),
     AUTH_RESEND_KEY: z.string().min(1).startsWith('re_'),
+    BLOB_READ_WRITE_TOKEN: z.string().min(1).startsWith('vercel_blob_rw_'),
   },
   client: {},
   runtimeEnv: {
@@ -14,6 +15,7 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
     AUTH_RESEND_KEY: process.env.AUTH_RESEND_KEY,
+    BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
   },
   emptyStringAsUndefined: true,
 });

@@ -1,4 +1,5 @@
 import {
+  ImageIcon,
   LayoutDashboardIcon,
   SettingsIcon,
   ShoppingBagIcon,
@@ -30,6 +31,11 @@ export const adminNav = {
     },
   ],
   secondary: [
+    {
+      label: 'Media',
+      href: '/admin/media',
+      icon: ImageIcon,
+    },
     {
       label: 'Settings',
       href: '/admin/settings',
