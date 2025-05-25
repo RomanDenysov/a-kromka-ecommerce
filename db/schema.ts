@@ -1,6 +1,5 @@
 import {
   boolean,
-  decimal,
   integer,
   pgTable,
   text,
@@ -103,7 +102,7 @@ export const categories = pgTable('categories', {
   imageId: text('image_id').references(() => media.id, {
     onDelete: 'set null',
   }),
-  parentId: text('parent_id'),
+  sortOrder: integer('sort_order').default(0).notNull(), // Custom sorting
   isActive: boolean('is_active').default(true).notNull(),
   createdAt: timestamp('created_at')
     .$defaultFn(() => new Date())
@@ -119,7 +118,8 @@ export const products = pgTable('products', {
   name: varchar('name', { length: 255 }).notNull(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   description: text('description'),
-  price: decimal('price', { precision: 10, scale: 2 }).notNull(),
+  priceCents: integer('price_cents').notNull().default(0),
+  priceCentsInternal: integer('price_cents_internal').notNull().default(0), // For customer group pricing (B2B, internal, etc.)
   categoryId: text('category_id')
     .notNull()
     .references(() => categories.id, { onDelete: 'restrict' }),
@@ -130,9 +130,14 @@ export const products = pgTable('products', {
     .$type<'draft' | 'active' | 'sold' | 'archived'>()
     .default('draft')
     .notNull(),
-  inventory: text('inventory').default('0'), // Use string for large numbers
-  weight: decimal('weight', { precision: 8, scale: 2 }), // For shipping calculations
-  dimensions: text('dimensions'), // JSON string: {width, height, depth}
+  inventory: integer('inventory'), // Optional inventory tracking
+  sortOrder: integer('sort_order').default(0).notNull(), // Custom sorting
+  sellingZone: text('selling_zone')
+    .$type<'b2b' | 'b2c' | 'b2b_b2c'>()
+    .default('b2c')
+    .notNull(),
+  isActive: boolean('is_active').default(true).notNull(),
+  isFeatured: boolean('is_featured').default(false).notNull(),
   createdAt: timestamp('created_at')
     .$defaultFn(() => new Date())
     .notNull(),
@@ -151,6 +156,31 @@ export const productImages = pgTable('product_images', {
     .notNull()
     .references(() => media.id, { onDelete: 'cascade' }),
   order: integer('order').default(0).notNull(), // Display order
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
+
+// Simple ingredients table
+export const ingredients = pgTable('ingredients', {
+  id: text('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull().unique(),
+  isAllergen: boolean('is_allergen').default(false).notNull(),
+  createdAt: timestamp('created_at')
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
+
+// Product ingredients - simple junction table
+export const productIngredients = pgTable('product_ingredients', {
+  id: text('id').primaryKey(),
+  productId: text('product_id')
+    .notNull()
+    .references(() => products.id, { onDelete: 'cascade' }),
+  ingredientId: text('ingredient_id')
+    .notNull()
+    .references(() => ingredients.id, { onDelete: 'cascade' }),
+  order: integer('order').default(0).notNull(),
   createdAt: timestamp('created_at')
     .$defaultFn(() => new Date())
     .notNull(),

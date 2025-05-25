@@ -8,6 +8,13 @@
       "when": 1748031962245,
       "tag": "0000_dashing_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748119950953,
+      "tag": "0001_neat_bruce_banner",
+      "breakpoints": true
     }
   ]
 }
