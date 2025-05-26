@@ -1,9 +1,11 @@
 'use client';
 
+import { CategorySelector } from '@/components/features/admin/category/ui/category-selector';
 import { LoadingButton } from '@/components/shared/loading-button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -29,7 +34,13 @@ const productSchema = z.object({
   description: z.string().min(1),
   image: z.string().min(1),
   price: z.number().min(0),
+  priceB2B: z.number().min(0),
   status: z.enum(['active', 'draft']),
+  inventory: z.number().nullable(),
+  sortOrder: z.number().min(0),
+  sellingZone: z.enum(['b2b', 'b2c', 'b2b_b2c']),
+  isActive: z.boolean(),
+  isFeatured: z.boolean(),
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
@@ -45,6 +56,12 @@ export function CreateProductForm() {
       image: '',
       price: 0,
       status: 'draft',
+      priceB2B: 0,
+      inventory: 0,
+      sortOrder: 0,
+      sellingZone: 'b2c',
+      isActive: true,
+      isFeatured: false,
     },
   });
 
@@ -101,9 +118,10 @@ export function CreateProductForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Category</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
+                <CategorySelector
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -165,6 +183,77 @@ export function CreateProductForm() {
                   <Input {...field} />
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="sellingZone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>B2B Availability</FormLabel>
+                <FormControl>
+                  <ToggleGroup
+                    type="single"
+                    variant="outline"
+                    value={field.value.toString()}
+                    onValueChange={(value) => field.onChange(value)}
+                    className="grid grid-cols-3"
+                  >
+                    <ToggleGroupItem value="b2b">B2B</ToggleGroupItem>
+                    <ToggleGroupItem value="b2c">B2C</ToggleGroupItem>
+                    <ToggleGroupItem value="b2b_b2c">B2B & B2C</ToggleGroupItem>
+                  </ToggleGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="isActive"
+            render={({ field }) => (
+              <FormItem
+                className={cn(
+                  'flex flex-row items-center justify-between rounded-lg border p-4'
+                )}
+              >
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Active Product</FormLabel>
+                  <FormDescription>
+                    Show this product in the store
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="isFeatured"
+            render={({ field }) => (
+              <FormItem
+                className={cn(
+                  'flex flex-row items-center justify-between rounded-lg border p-4'
+                )}
+              >
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Featured Product</FormLabel>
+                  <FormDescription>
+                    Show this product in featured sections
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />

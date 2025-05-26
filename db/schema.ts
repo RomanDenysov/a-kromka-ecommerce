@@ -1,3 +1,4 @@
+import { createId } from '@paralleldrive/cuid2';
 import {
   boolean,
   integer,
@@ -76,7 +77,9 @@ export const verifications = pgTable('verifications', {
 
 // Media/Images table - central storage for all images
 export const media = pgTable('media', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   filename: varchar('filename', { length: 255 }).notNull(),
   originalName: varchar('original_name', { length: 255 }).notNull(),
   mimeType: varchar('mime_type', { length: 100 }).notNull(),
@@ -95,13 +98,12 @@ export const media = pgTable('media', {
 
 // Categories table
 export const categories = pgTable('categories', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   name: varchar('name', { length: 255 }).notNull(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   description: text('description'),
-  imageId: text('image_id').references(() => media.id, {
-    onDelete: 'set null',
-  }),
   sortOrder: integer('sort_order').default(0).notNull(), // Custom sorting
   isActive: boolean('is_active').default(true).notNull(),
   createdAt: timestamp('created_at')
@@ -112,9 +114,13 @@ export const categories = pgTable('categories', {
     .notNull(),
 });
 
+export type InsertCategory = typeof categories.$inferInsert;
+
 // Products table
 export const products = pgTable('products', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   name: varchar('name', { length: 255 }).notNull(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   description: text('description'),
@@ -148,7 +154,9 @@ export const products = pgTable('products', {
 
 // Product Images junction table (for multiple images per product)
 export const productImages = pgTable('product_images', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   productId: text('product_id')
     .notNull()
     .references(() => products.id, { onDelete: 'cascade' }),
@@ -163,7 +171,9 @@ export const productImages = pgTable('product_images', {
 
 // Simple ingredients table
 export const ingredients = pgTable('ingredients', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   name: varchar('name', { length: 255 }).notNull().unique(),
   isAllergen: boolean('is_allergen').default(false).notNull(),
   createdAt: timestamp('created_at')
@@ -173,7 +183,9 @@ export const ingredients = pgTable('ingredients', {
 
 // Product ingredients - simple junction table
 export const productIngredients = pgTable('product_ingredients', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   productId: text('product_id')
     .notNull()
     .references(() => products.id, { onDelete: 'cascade' }),

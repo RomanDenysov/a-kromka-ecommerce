@@ -1,4 +1,8 @@
+'use client';
+
+import { LoadingButton } from '@/components/shared/loading-button';
 import { Button } from '@/components/ui/button';
+
 import {
   Sheet,
   SheetClose,
@@ -7,28 +11,40 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet';
 
+import { useCategorySheet } from '../hook/use-category-sheet';
+import { useCreateCategoryForm } from '../hook/use-create-category-form';
+import { CreateCategoryForm } from './create-category-form';
+
 export function CategorySheet() {
+  const open = useCategorySheet((state) => state.open);
+  const onOpenChange = useCategorySheet((state) => state.onOpenChange);
+  const { isLoading } = useCreateCategoryForm();
+
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
-      </SheetTrigger>
-      <SheetContent>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent className="sm:max-w-xl">
         <SheetHeader>
-          <SheetTitle>Category</SheetTitle>
+          <SheetTitle>Create Category</SheetTitle>
           <SheetDescription>
-            <p>This is the category of the product.</p>
-            <p>You can add a new category or edit the existing one.</p>
+            Add a new category for your products.
           </SheetDescription>
         </SheetHeader>
-
+        <CreateCategoryForm />
         <SheetFooter>
           <SheetClose asChild>
-            <Button variant="outline">Save Changes</Button>
+            <Button type="button" variant="outline">
+              Cancel
+            </Button>
           </SheetClose>
+          <LoadingButton
+            form="create-category-form"
+            type="submit"
+            isLoading={isLoading}
+          >
+            Create Category
+          </LoadingButton>
         </SheetFooter>
       </SheetContent>
     </Sheet>
