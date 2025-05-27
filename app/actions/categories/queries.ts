@@ -7,6 +7,7 @@ import { asc, eq } from 'drizzle-orm';
 
 export const getCategories = unstable_cache(
   async () => {
+    console.log('getCategories');
     return await db.query.categories.findMany({
       where: eq(categories.isActive, true),
       orderBy: [asc(categories.name)],

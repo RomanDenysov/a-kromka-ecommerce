@@ -9,16 +9,25 @@ import {
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { useCreateCategoryForm } from '../hook/use-create-category-form';
+import { getSlug } from '@/lib/get-slug';
+import type { UseFormReturn } from 'react-hook-form';
+import type { CategoryFormValues } from '../hook/use-create-category-form';
 
-export function CreateCategoryForm() {
-  const { form, onSubmit } = useCreateCategoryForm();
+interface CreateCategoryFormProps {
+  form: UseFormReturn<CategoryFormValues>;
+  onSubmit: (values: CategoryFormValues) => Promise<void>;
+}
+
+export function CreateCategoryForm({
+  form,
+  onSubmit,
+}: CreateCategoryFormProps) {
   return (
     <Form {...form}>
       <form
         id="create-category-form"
         name="create-category-form"
-        onSubmit={onSubmit}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 px-4 py-2"
       >
         <FormField
@@ -28,7 +37,14 @@ export function CreateCategoryForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  onBlur={(e) => {
+                    e.preventDefault();
+                    const value = e.target.value;
+                    form.setValue('slug', getSlug(value));
+                  }}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -40,7 +56,14 @@ export function CreateCategoryForm() {
             <FormItem>
               <FormLabel>Slug</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    const value = getSlug(e.target.value);
+                    field.onChange(value);
+                  }}
+                />
               </FormControl>
             </FormItem>
           )}

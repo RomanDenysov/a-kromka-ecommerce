@@ -1,4 +1,4 @@
-import { getMedia } from '@/app/actions/media';
+import { getMedia } from '@/app/actions/media/queries';
 import { CheckIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

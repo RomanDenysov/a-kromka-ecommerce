@@ -15,6 +15,7 @@ export {
 
 // Components
 export { MediaUploadDropzone } from './dropzone';
+export { MediaUploadMulti } from './media-upload-multi';
 export { AspectRatioSelector } from './aspect-ratio-selector';
 export { ItemCropper } from './item-cropper';
 export { ItemForm } from './item-form';

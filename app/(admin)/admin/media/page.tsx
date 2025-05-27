@@ -1,11 +1,11 @@
-import { getMedia } from '@/app/actions/media';
+import { getMedia } from '@/app/actions/media/queries';
 import { MediaGallery } from '@/components/shared/media-gallery';
 import { DashboardHeader } from '../../components/dashboard-header';
 import { PageLayout } from '../products/components/page-layout';
 import { MediaUploadWrapper } from './components/media-upload-wrapper';
 
 export default async function MediaPage() {
-  const mediaItems = await getMedia();
+  const mediaItems = await getMedia(1, 100);
 
   return (
     <>

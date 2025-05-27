@@ -1,11 +1,21 @@
 export type MediaItem = {
   id: string;
-  url: string;
   filename: string;
   originalName: string;
+  mimeType: string;
+  size: string;
+  url: string;
+  blobId: string;
   alt: string | null;
   caption: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 };
+
+export type MediaItemBasic = Pick<
+  MediaItem,
+  'id' | 'url' | 'originalName' | 'alt'
+>;
 
 export type UploadItem = {
   id: string;

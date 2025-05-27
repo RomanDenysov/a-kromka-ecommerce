@@ -2,9 +2,8 @@
 
 import { db } from '@/db';
 import { media } from '@/db/schema';
-import { createId } from '@paralleldrive/cuid2';
 import { put } from '@vercel/blob';
-import { desc, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import sharp from 'sharp';
 
@@ -80,11 +79,9 @@ export async function uploadMedia(formData: FormData): Promise<UploadResult> {
     const blobId = blob.pathname || blob.url.split('/').pop() || '';
 
     // Save to database
-    const mediaId = createId();
     const [savedMedia] = await db
       .insert(media)
       .values({
-        id: mediaId,
         filename: finalFilename,
         originalName: imageFile.name,
         mimeType: contentType,
@@ -107,32 +104,6 @@ export async function uploadMedia(formData: FormData): Promise<UploadResult> {
       error: error instanceof Error ? error.message : 'Failed to upload image',
     };
   }
-}
-
-export async function getMedia(page = 1, limit = 20) {
-  try {
-    const offset = (page - 1) * limit;
-
-    const mediaItems = await db
-      .select()
-      .from(media)
-      .orderBy(desc(media.createdAt))
-      .limit(limit)
-      .offset(offset);
-
-    return mediaItems;
-  } catch (error) {
-    // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.error('Fetch media error:', error);
-    return [];
-  }
-}
-
-export async function getMediaById(id: string) {
-  const mediaItem = await db.query.media.findFirst({
-    where: eq(media.id, id),
-  });
-  return mediaItem;
 }
 
 export async function updateMedia(

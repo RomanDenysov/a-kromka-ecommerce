@@ -12,7 +12,7 @@ const categorySchema = z.object({
   sortOrder: z.number().optional(),
 });
 
-type CategoryFormValues = z.infer<typeof categorySchema>;
+export type CategoryFormValues = z.infer<typeof categorySchema>;
 
 export function useCreateCategoryForm() {
   const form = useForm<CategoryFormValues>({
@@ -26,7 +26,7 @@ export function useCreateCategoryForm() {
     },
   });
 
-  const onSubmit = form.handleSubmit(async (values) => {
+  const handleFormSubmit = async (values: CategoryFormValues) => {
     const result = await createCategory(values);
     if (result.success) {
       form.reset();
@@ -34,9 +34,9 @@ export function useCreateCategoryForm() {
     } else {
       toast.error(result.error ?? 'Failed to create category');
     }
-  });
+  };
 
   const isLoading = form.formState.isSubmitting;
 
-  return { form, onSubmit, isLoading };
+  return { form, onSubmit: handleFormSubmit, isLoading };
 }

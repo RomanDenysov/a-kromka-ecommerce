@@ -1,6 +1,6 @@
 'use client';
 
-import { uploadMedia } from '@/app/actions/media';
+import { uploadMedia } from '@/app/actions/media/actions';
 import { Button } from '@/components/ui/button';
 import { getCroppedImg } from '@/lib/crop-utils';
 import { useCallback, useState, useTransition } from 'react';

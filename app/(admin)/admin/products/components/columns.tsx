@@ -31,7 +31,7 @@ export type TableProduct = {
   id: string;
   image: string;
   name: string;
-  price: string;
+  price: number;
   status: 'draft' | 'active' | 'sold' | 'archived';
   createdAt: string;
 };
