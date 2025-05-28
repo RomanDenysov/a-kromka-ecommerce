@@ -1,8 +1,8 @@
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
-import { isAuthenticated } from './actions/auth';
+import { isAuthenticated } from '../actions/auth';
 
-export default async function Home() {
+export default async function HomePage() {
   const isAuth = await isAuthenticated();
 
   return (
