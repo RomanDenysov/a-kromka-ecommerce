@@ -13,7 +13,7 @@ export default function MainLayout({
       <SpecialBanner />
 
       <Header />
-      <div className="container mx-auto flex-1">{children}</div>
+      <div className="container mx-auto flex-1 px-4">{children}</div>
     </main>
   );
 }

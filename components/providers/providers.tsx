@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
+import { Provider as WBProvider } from 'react-wrap-balancer';
 import { Toaster } from '../ui/sonner';
 
 type ProvidersProps = {
@@ -24,8 +25,10 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      {children}
+      <WBProvider>
+        <Toaster />
+        {children}
+      </WBProvider>
     </QueryClientProvider>
   );
 }
